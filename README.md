@@ -1,2 +1,46 @@
-# DeployLanguagePacks
-This PowerShell script installs and configures a specified language pack on Windows devices. It supports manual language selection or automatic detection based on the user's public IP address. The script sets the default system language, updates regional settings, and applies the configuration to the system and new user profiles.
+# Deploy-LanguagePack.ps1
+
+This PowerShell script automates the installation and configuration of language packs on Windows devices. It supports both manual language selection and automatic detection based on the user's public IP address.
+
+## Features
+
+- Install a specified language pack
+- Automatically detect language based on public IP address
+- Set the default system language
+- Update regional settings
+- Apply configuration to the system and new user profiles
+- Optionally reboot the system after configuration
+
+## Usage
+
+### Parameters
+
+- `-languageTag`: Specify the language tag to install (e.g., `en-US`, `fr-FR`). A list of valid language tags can be found [here](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/available-language-packs-for-windows?view=windows-11#language-packs).
+- `-AutoDetect`: Automatically detect the language based on the public IP address.
+- `-AutoReboot`: Automatically reboot the system after applying the language configuration.
+
+### Examples
+
+#### Install a Specific Language Pack
+```powershell
+.\Install-LanguagePack.ps1 -languageTag en-US
+```
+#### Automatically Detect and Install Language Pack
+```powershell
+.\Install-LanguagePack.ps1 -AutoDetect
+```
+
+#### Install a Specific Language Pack and Reboot
+```powershell
+.\Install-LanguagePack.ps1 -languageTag en-US -AutoReboot
+```
+
+#### Automatically Detect, Install Language Pack, and Reboot
+```powershell
+.\Install-LanguagePack.ps1 -AutoDetect -AutoReboot
+```
+#### Sources
+https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/available-language-packs-for-windows?view=windows-11#language-packs
+https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-input-locales-for-windows-language-packs?view=windows-11#input-locales
+https://learn.microsoft.com/en-us/windows/win32/intl/table-of-geographical-locations
+
