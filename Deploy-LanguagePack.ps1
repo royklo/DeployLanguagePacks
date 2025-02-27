@@ -32,6 +32,11 @@ if (-not $languageTag -and -not $AutoDetect) {
     exit 1
 }
 
+if ($AutoDetect -and $languageTag) {
+    Write-Error "You cannot specify both -languageTag and -AutoDetect."
+    exit 1
+}
+
 # Define the language mapping hash table
 $languageMap = @{
     "af-ZA" = @{ Language = "Afrikaans (South Africa)"; Tag = "af-ZA"; GeoId = 209 }
