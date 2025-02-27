@@ -32,13 +32,13 @@ This PowerShell script automates the installation and configuration of language 
 ```powershell
 .\Install-LanguagePack.ps1 -languageTag en-US -AutoReboot
 ```
-![Manual Language Pack Deployment](./Deploy-LanguagePack-Manually.png)
+![Manual Language Pack Deployment](./support/Deploy-LanguagePack-Manually.png)
 
 #### Automatically Detect, Install Language Pack, and Reboot
 ```powershell
 .\Install-LanguagePack.ps1 -AutoDetect -AutoReboot
 ```
-![AutoDetect Language Pack Deployment](./Deploy-LanguagePack-AutoDetect.png)
+![AutoDetect Language Pack Deployment](./support/Deploy-LanguagePack-AutoDetect.png)
 
 
 #### Sources
