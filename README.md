@@ -39,6 +39,7 @@ This PowerShell script automates the installation and configuration of language 
 ```powershell
 .\Install-LanguagePack.ps1 -AutoDetect -AutoReboot
 ```
+
 #### Sources
 https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/available-language-packs-for-windows?view=windows-11#language-packs
 https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-input-locales-for-windows-language-packs?view=windows-11#input-locales
