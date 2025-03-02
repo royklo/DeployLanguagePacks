@@ -747,13 +747,11 @@ if ($null -eq $languageSettings) {
 
 Write-Output "Selected language: $($languageSettings.Language) - $($languageSettings.Tag)"
 
-#if (-not $rollback) {
-    # Get the current language settings
-    $installedLanguages = (Get-WinUserLanguageList).LanguageTag
-    $InstalledCulture = (Get-Culture).Name
-    $InstalledHomeLocation = (Get-WinHomeLocation).GeoId
-    $InstalledTimezone = (Get-TimeZone).Id
-#}
+# Check if the language pack is already installed
+$installedLanguages = (Get-WinUserLanguageList).LanguageTag
+$InstalledCulture = (Get-Culture).Name
+$InstalledHomeLocation = (Get-WinHomeLocation).GeoId
+$InstalledTimezone = (Get-TimeZone).Id
 
 if ($installedLanguages -contains $languageSettings.Tag -and $InstalledCulture -eq $languageSettings.Tag -and $InstalledHomeLocation -eq $languageSettings.GeoId -and $InstalledTimezone -eq $languageSettings.Timezone) {
     Write-Output "Language pack is already installed and configured correctly. Skipping the installation step."
