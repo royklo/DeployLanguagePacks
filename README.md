@@ -8,12 +8,14 @@ This PowerShell script automates the installation and configuration of language 
 - Update regional settings
 - Apply configuration to the system and new user profiles
 - Optionally reboot the system after configuration
+- Rollback to the original language configuration
 
 ## Usage
 ### Parameters
 - `-languageTag`: Specify the language tag to install (e.g., `en-US`, `fr-FR`). A list of valid language tags can be found [here](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/available-language-packs-for-windows?view=windows-11#language-packs).
 - `-AutoDetect`: Automatically detect the language based on the public IP address.
 - `-AutoReboot`: Automatically reboot the system after applying the language configuration.
+- `-rollback`: Rollback to the original language configuration.
 
 ### Examples
 ### Important Note

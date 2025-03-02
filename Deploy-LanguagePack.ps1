@@ -18,16 +18,42 @@ param (
     )]
     [string]$languageTag,
 
-    
     [Parameter(Mandatory=$false)]
     [switch]$AutoDetect,
 
     [Parameter(Mandatory=$false)]
-    [switch]$AutoReboot
+    [switch]$AutoReboot,
 
+    [Parameter(Mandatory=$false)]
+    [switch]$rollback
 )
 
-if (-not $languageTag -and -not $AutoDetect) {
+Function Update-RegistryWithLanguageInfo {
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]$InstalledLanguage,
+        
+        [Parameter(Mandatory=$true)]
+        [string]$OriginalLanguage
+    )
+
+    # Create a registry key to store the installed language information
+    $registryPath = "HKLM:\SOFTWARE\RK Solutions\LanguagePack"
+    if (-not (Test-Path $registryPath)) {
+        New-Item -Path $registryPath -Force | Out-Null
+    }
+
+    # Set the InstalledLanguage value in the registry
+    Set-ItemProperty -Path $registryPath -Name "InstalledLanguage" -Value $InstalledLanguage -Force
+
+    # Set the OriginalLanguage value in the registry for rollback
+    Set-ItemProperty -Path $registryPath -Name "OriginalLanguage" -Value $OriginalLanguage -Force
+
+    Write-Output "Registry key updated with installed language: $InstalledLanguage"
+    Write-Output "Registry key updated with original language: $OriginalLanguage"
+}
+
+if (-not $languageTag -and -not $AutoDetect -and -not $rollback) {
     Write-Error "You must specify either -languageTag or -AutoDetect."
     exit 1
 }
@@ -36,6 +62,29 @@ if ($AutoDetect -and $languageTag) {
     Write-Error "You cannot specify both -languageTag and -AutoDetect."
     exit 1
 }
+
+if ($rollback -and $AutoDetect) {
+    Write-Error "You cannot specify both -rollback and -AutoDetect."
+    exit 1
+}
+
+if ($rollback -and $languageTag) {
+    Write-Error "You cannot specify both -rollback and -languageTag."
+    exit 1
+}
+
+if ($rollback){
+    $registryPath = "HKLM:\SOFTWARE\RK Solutions\LanguagePack"
+    $OriginalLanguage = Get-ItemPropertyValue -Path $registryPath -Name "OriginalLanguage" -ErrorAction SilentlyContinue
+    if ($OriginalLanguage -eq $null) {
+        Write-Output "Original language not found in registry"
+        exit 1
+    } else {
+        Write-Output "Rolling back to original language: $OriginalLanguage"
+        $languageTag = $OriginalLanguage
+    }
+}
+
 
 # Define the language mapping hash table
 $languageMap = @{
@@ -198,9 +247,12 @@ if ($null -eq $languageSettings) {
 
 Write-Output "Selected language: $($languageSettings.Language) - $($languageSettings.Tag)"
 
+if (-not $rollback) {
+# Get the current language settings
 $installedLanguages = (Get-WinUserLanguageList).LanguageTag
 $InstalledCulture = (Get-Culture).Name
 $InstalledHomeLocation = (Get-WinHomeLocation).GeoId
+}
 
 if ($installedLanguages -contains $languageSettings.Tag -and $InstalledCulture -eq $languageSettings.Tag -and $InstalledHomeLocation -eq $languageSettings.GeoId) {
     Write-Output "Language pack is already installed and configured correctly. Skipping the installation step."
@@ -243,5 +295,15 @@ if ($installedLanguages -contains $languageSettings.Tag -and $InstalledCulture -
         Write-Output "Error occurred during language configuration: $($_.Exception.Message)"
         exit 1
     }
+}
+
+# Call the function to update the registry
+if ($rollback) {
+    Update-RegistryWithLanguageInfo -InstalledLanguage $OriginalLanguage -OriginalLanguage $languageSettings.Tag
+    Write-Output "Rollback completed successfully!"
+    exit 0
+} else {
+    Update-RegistryWithLanguageInfo -InstalledLanguage $languageSettings.Tag -OriginalLanguage $InstalledCulture
+    exit 0
 }
 
