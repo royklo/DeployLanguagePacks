@@ -13,6 +13,7 @@ This PowerShell script automates the installation and configuration of language 
 ## Usage
 ### Parameters
 - `-languageTag`: Specify the language tag to install (e.g., `en-US`, `fr-FR`). A list of valid language tags can be found [here](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/available-language-packs-for-windows?view=windows-11#language-packs).
+- `-TimeZone`: Specify the time zone to set (e.g., `Pacific Standard Time`, `Central European Standard Time`).
 - `-AutoDetect`: Automatically detect the language based on the public IP address.
 - `-AutoReboot`: Automatically reboot the system after applying the language configuration.
 - `-rollback`: Rollback to the original language configuration.
@@ -20,6 +21,7 @@ This PowerShell script automates the installation and configuration of language 
 ### Examples
 ### Important Note
 > **Warning**: Ensure that VPN or proxy scenarios are considered, as they can impact the accuracy of the language detection based on the public IP address. It is recommended to manually specify the language tag in such cases to avoid incorrect language deployment.
+
 
 #### Install a Specific Language Pack
 ```powershell
