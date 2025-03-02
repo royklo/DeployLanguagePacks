@@ -9,6 +9,7 @@ This PowerShell script automates the installation and configuration of language 
 - Apply configuration to the system and new user profiles
 - Optionally reboot the system after configuration
 - Rollback to the original language configuration
+- Timezone overwrite possibility that isn't matching with language tag/region
 
 ## Usage
 ### Parameters
