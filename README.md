@@ -26,27 +26,27 @@ This PowerShell script automates the installation and configuration of language 
 
 #### Install a Specific Language Pack
 ```powershell
-.\Install-LanguagePack.ps1 -languageTag en-US
+.\Deploy-LanguagePack.ps1 -languageTag en-US
 ```
 #### Automatically Detect and Install Language Pack
 ```powershell
-.\Install-LanguagePack.ps1 -AutoDetect
+.\Deploy-LanguagePack.ps1 -AutoDetect
 ```
 
 #### Install a Specific Language Pack and Reboot
 ```powershell
-.\Install-LanguagePack.ps1 -languageTag en-US -AutoReboot
+.\Deploy-LanguagePack.ps1 -languageTag en-US -AutoReboot
 ```
 ![Manual Language Pack Deployment](./support/Deploy-LanguagePack-Manually.png)
 
 #### install a Specific Language Pack, Custom TimeZone and Reboot
 ```powershell
-.\Install-LanguagePack.ps1 -languageTag en-US -TimeZone 'W. Europe Standard Time' -AutoReboot
+.\Deploy-LanguagePack.ps1 -languageTag en-US -TimeZone 'W. Europe Standard Time' -AutoReboot
 ```
 
 #### Automatically Detect, Install Language Pack, and Reboot
 ```powershell
-.\Install-LanguagePack.ps1 -AutoDetect -AutoReboot
+.\Deploy-LanguagePack.ps1 -AutoDetect -AutoReboot
 ```
 ![AutoDetect Language Pack Deployment](./support/Deploy-LanguagePack-AutoDetect.png)
 
